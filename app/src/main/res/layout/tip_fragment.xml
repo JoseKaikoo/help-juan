@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:layout_margin="@dimen/main_margin"
+    tools:context="es.juanTejada.TipCalculator.MainActivity">
+
+<androidx.appcompat.widget.Toolbar/>
+    <EditText
+        android:id="@+id/edText_bill"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:focusedByDefault="true"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+        android:text="@string/tw_bill_value"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:id="@+id/lbl_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_bill"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toTopOf="@+id/edText_bill"
+        app:layout_constraintEnd_toEndOf="@+id/edText_bill" />
+
+    <ImageView
+        android:id="@+id/imgView_bill"
+        android:layout_width="16sp"
+        android:layout_height="16dp"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        android:contentDescription="@string/imgView_content_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/euroicon"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_bill"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/edText_bill"
+        app:layout_constraintTop_toTopOf="@+id/edText_bill" />
+
+    <TextView
+        android:id="@+id/lbl_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_tip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toTopOf="@+id/edText_tip"
+        app:layout_constraintEnd_toEndOf="@+id/edText_tip" />
+
+    <ImageView
+        android:id="@+id/imgView_tip"
+        android:layout_width="@dimen/imgView_width"
+        android:layout_height="@dimen/imgView_height"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        android:contentDescription="@string/imgView_content_description"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_tip"
+        app:layout_constraintStart_toEndOf="@+id/edText_tip"
+        app:layout_constraintTop_toTopOf="@+id/edText_tip"
+        app:srcCompat="@drawable/euroicon" />
+
+    <EditText
+        android:id="@+id/edText_tip_percentage"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+        android:text="@string/edText_tip_percentage"
+        app:layout_constraintEnd_toStartOf="@+id/imgView_tip_percentage"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edText_bill"
+        tools:ignore="Autofill,LabelFor" />
+
+    <EditText
+        android:id="@+id/edText_tip"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:text="@string/edText_initial_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_tip_percentage"
+        app:layout_constraintEnd_toEndOf="@id/guideLine_editText"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/imgView_tip_percentage"
+        tools:ignore="Autofill,LabelFor" />
+
+    <ImageView
+        android:id="@+id/imgView_tip_percentage"
+        android:layout_width="@dimen/imgView_width"
+        android:layout_height="@dimen/imgView_height"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:contentDescription="@string/context_resource_percentage"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_tip_percentage"
+        app:layout_constraintEnd_toStartOf="@+id/edText_tip"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/edText_tip_percentage"
+        app:layout_constraintTop_toTopOf="@+id/edText_tip_percentage"
+        app:srcCompat="@drawable/percentageicon"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_tip_percentage"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toTopOf="@+id/edText_tip_percentage"
+        app:layout_constraintEnd_toEndOf="@+id/edText_tip_percentage" />
+
+    <ImageView
+        android:id="@+id/imgView_total"
+        android:layout_width="@dimen/imgView_height"
+        android:layout_height="@dimen/imgView_width"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_total"
+        app:layout_constraintStart_toEndOf="@+id/edText_total"
+        app:layout_constraintTop_toTopOf="@+id/edText_total"
+        app:srcCompat="@drawable/euroicon" />
+
+    <EditText
+        android:id="@+id/edText_total"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:text="@string/edText_initial_amount"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edText_tip"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:id="@+id/lbl_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_total"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toTopOf="@+id/edText_total"
+        app:layout_constraintEnd_toEndOf="@+id/edText_total" />
+
+    <Button
+        android:id="@+id/btn_reset_bill"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:text="@string/btn_reset_text"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintTop_toBottomOf="@+id/edText_total" />
+
+    <EditText
+        android:id="@+id/edText_Diner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+        android:text="@string/edText_initial_diners"
+        app:layout_constraintEnd_toStartOf="@+id/edText_perDiner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_reset_bill"
+        tools:ignore="Autofill,LabelFor" />
+
+    <EditText
+        android:id="@+id/edText_perDiner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+
+        android:text="@string/edText_initial_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_Diner"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toEndOf="@+id/edText_Diner"
+        app:layout_constraintTop_toTopOf="@+id/edText_Diner"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:id="@+id/lbl_diners"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_diners"
+        app:layout_constraintBottom_toTopOf="@+id/edText_Diner"
+        app:layout_constraintEnd_toEndOf="@+id/edText_Diner" />
+
+    <TextView
+        android:id="@+id/lbl_perDiner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_perDiner"
+        app:layout_constraintBottom_toTopOf="@+id/edText_perDiner"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText" />
+
+    <ImageView
+        android:id="@+id/imgView_perDiner"
+        android:layout_width="@dimen/imgView_width"
+        android:layout_height="@dimen/imgView_height"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_perDiner"
+        app:layout_constraintStart_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintTop_toTopOf="@+id/edText_perDiner"
+        app:srcCompat="@drawable/euroicon" />
+
+    <EditText
+        android:id="@+id/edText_rounded"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:text="@string/edText_initial_amount"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edText_perDiner"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:id="@+id/lbl_rounded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:layout_marginBottom="@dimen/main_inter_margin"
+        android:text="@string/lbl_rounded"
+        app:layout_constraintBottom_toTopOf="@+id/edText_rounded"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText" />
+
+    <ImageView
+        android:id="@+id/imgView_rounded"
+        android:layout_width="@dimen/imgView_width"
+        android:layout_height="@dimen/imgView_height"
+        android:layout_marginStart="@dimen/main_inter_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/edText_rounded"
+        app:layout_constraintStart_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintTop_toTopOf="@+id/edText_rounded"
+        app:srcCompat="@drawable/euroicon" />
+
+    <Button
+        android:id="@+id/btn_reset_diners"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_inter_margin"
+        android:layout_marginEnd="@dimen/main_inter_margin"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="@string/btn_reset_text"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
+        app:layout_constraintTop_toBottomOf="@+id/edText_rounded" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

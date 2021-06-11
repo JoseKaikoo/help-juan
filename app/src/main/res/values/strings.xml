@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Tip Calculator</string>
+    <string name="lbl_bill">Bill</string>
+    <string name="tw_bill_value">0.00</string>
+    <string name="lbl_tip">Tip</string>
+    <string name="edText_initial_amount">0.00</string>
+    <string name="edText_tip_percentage">10.00</string>
+    <string name="imgView_content_description">euro icon</string>
+    <string name="context_resource_percentage">Percentage symbol</string>
+    <string name="lbl_tip_percentage">Tip %</string>
+    <string name="lbl_total">Total</string>
+    <string name="btn_reset_text">Reset</string>
+    <string name="edText_initial_diners">1</string>
+    <string name="lbl_perDiner">Per diner</string>
+    <string name="lbl_diners">Diners</string>
+    <string name="lbl_rounded">Rounded</string>
+</resources>
