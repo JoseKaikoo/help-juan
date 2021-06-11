@@ -118,15 +118,15 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun createTipCalculator() {
-        var name = ""
-        val input: EditText = EditText(requireContext())
+        val input = EditText(requireContext())
         alertDialog
             .setView(input)
             .setTitle("Restaurant")
             .setMessage("enter name of the restaurant")
             .setPositiveButton("Save") { _, _ ->
-                Log.d("pollo",input.text.toString())
-                viewModel.saveBill(input.text.toString())
+                val percentage = binding.edTextTipPercentage.text.toString().toFloat()
+                val dinners = binding.edTextDiner.text.toString().toInt()
+                viewModel.saveBill(input.text.toString(), percentage, dinners)
             }
             .create()
             .show()

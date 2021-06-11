@@ -1,5 +1,6 @@
 package es.juanTejada.TipCalculator.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,11 +23,11 @@ class TipViewModel(private val tipRepository: TipRepository) : ViewModel() {
         get() = _tip
 
 
-    private val _percentage: MutableLiveData<Float> = MutableLiveData(0.00f)
+    private val _percentage: MutableLiveData<Float> = MutableLiveData(10.00f)
     val percentage: MutableLiveData<Float>
         get() = _percentage
 
-    private val _diners: MutableLiveData<Int> = MutableLiveData(0)
+    private val _diners: MutableLiveData<Int> = MutableLiveData(1)
     val diners: MutableLiveData<Int>
         get() = _diners
 
@@ -64,12 +65,13 @@ class TipViewModel(private val tipRepository: TipRepository) : ViewModel() {
         _dinerAmount.value = 0.00f
     }
 
-    fun saveBill(name: String) {
+    fun saveBill(name: String, percentage: Float, diners: Int) {
+       
         val bill = TipCalculator(
             0,
-            _bill.value!!,
-            _percentage.value!!,
-            _diners.value!!,
+            _total.value!!,
+            percentage,
+            diners,
             Date().toString(),
             name
         )

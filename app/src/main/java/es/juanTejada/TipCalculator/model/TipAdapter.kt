@@ -13,7 +13,9 @@ class TipAdapter : ListAdapter<TipCalculator, TipAdapter.ViewHolder?>(TipItemDif
         fun bind(tip: TipCalculator) {
             item.lblName.text = tip.name
             item.lblDate.text = tip.date
-            item.lblName.text = tip.name
+            item.lblPercentage.text = tip.percentage.toString()
+            val tip = "Bill: ${tip.bill} Diners: ${tip.dinners}"
+            item.lblTip.text = tip
         }
     }
 
