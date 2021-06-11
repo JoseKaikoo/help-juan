@@ -1,5 +1,7 @@
 package es.juanTejada.TipCalculator.ui.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +16,7 @@ import es.juanTejada.TipCalculator.databinding.TipFragmentBinding
 import es.juanTejada.TipCalculator.model.TipCalculator
 import es.juanTejada.TipCalculator.model.isNotEmpty
 
+
 class TipFragment : Fragment(R.layout.tip_fragment) {
 
     private val binding: TipFragmentBinding by lazy {
@@ -21,6 +24,9 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
     private lateinit var tipCalculator: TipCalculator
     private val navController: NavController by lazy { findNavController() }
+    val alertDialog by lazy {
+        AlertDialog.Builder(requireContext())
+    }
 
     private val viewModel: TipViewModel by viewModels()
 
@@ -48,7 +54,7 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     private fun setupViews() {
         binding.toolbar.inflateMenu(R.menu.main_mnu)
         binding.toolbar.setOnMenuItemClickListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.savemnu -> save()
                 R.id.recordsmnu -> navToRecords()
             }
@@ -145,7 +151,19 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun createTipCalculator() {
-        viewModel.saveBill()
+        var name = ""
+        val input: EditText = EditText(requireContext())
+        alertDialog
+            .setView(input)
+            .setTitle("Restaurant")
+            .setMessage("enter name of the restaurant")
+            .setPositiveButton("Save") { _, _ ->
+                Log.d("pollo",input.text.toString())
+                viewModel.saveBill(input.text.toString())
+            }
+            .create()
+            .show()
+
     }
 
     //Reset bill to default amount.
@@ -162,11 +180,11 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun navToRecords() {
-        Log.d("pollo","si")
+        Log.d("pollo", "si")
         navController.navigate(R.id.tipRecordsFragment)
     }
 
     private fun save() {
-        //TODO
+        createTipCalculator()
     }
 }

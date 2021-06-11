@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.lang.IllegalArgumentException
+import java.util.*
 import kotlin.math.ceil
 
 @Entity
@@ -16,7 +17,11 @@ data class TipCalculator(
     @ColumnInfo(name = "percentage")
     val percentage:Float,
     @ColumnInfo(name = "dinners")
-    val dinners:Int
+    val dinners:Int,
+    @ColumnInfo(name = "date")
+    var date: String = Date().toString(),
+    @ColumnInfo(name = "name")
+    val name: String
     ) {
 
     init {
