@@ -1,15 +1,21 @@
 package es.juanTejada.TipCalculator.ui.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import es.juanTejada.TipCalculator.R
 import es.juanTejada.TipCalculator.databinding.TipFragmentBinding
 import es.juanTejada.TipCalculator.model.TipCalculator
 import es.juanTejada.TipCalculator.model.isNotEmpty
+
 
 class TipFragment : Fragment(R.layout.tip_fragment) {
 
@@ -17,10 +23,16 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
         TipFragmentBinding.bind(requireView())
     }
 
+    private val navController: NavController by lazy { findNavController() }
+    val alertDialog by lazy {
+        AlertDialog.Builder(requireContext())
+    }
+
     private val viewModel: TipViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         setupViews()
         viewModel.total.observe(viewLifecycleOwner, {
             binding.edTextTotal.setText(String.format("%.2f", it))
@@ -52,6 +64,14 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun setupViews() {
+        binding.toolbar.inflateMenu(R.menu.main_mnu)
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.savemnu -> save()
+                R.id.recordsmnu -> navToRecords()
+            }
+            return@setOnMenuItemClickListener true
+        }
         binding.btnResetBill.setOnClickListener { resetBill() }
         binding.btnResetDiners.setOnClickListener { resetDiner() }
         binding.edTextBill.requestFocus()
@@ -67,7 +87,13 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun calculateDiners() {
-        viewModel.setDiners(captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt())
+        viewModel.setDiners(
+            captureValue(
+                binding.edTextDiner,
+                getString(R.string.edText_initial_diners),
+                1f
+            ).toInt()
+        )
         if (viewModel.diners.value == 0) binding.edTextDiner.setText(getString(R.string.edText_initial_diners))
     }
 
@@ -95,7 +121,19 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun createTipCalculator() {
-        viewModel.saveBill()
+        var name = ""
+        val input: EditText = EditText(requireContext())
+        alertDialog
+            .setView(input)
+            .setTitle("Restaurant")
+            .setMessage("enter name of the restaurant")
+            .setPositiveButton("Save") { _, _ ->
+                Log.d("pollo",input.text.toString())
+                viewModel.saveBill(input.text.toString())
+            }
+            .create()
+            .show()
+
     }
 
     //Reset bill to default amount.
@@ -112,4 +150,12 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
         binding.edTextDiner.selectAll()
     }
 
+    private fun navToRecords() {
+        Log.d("pollo", "si")
+        navController.navigate(R.id.tipRecordsFragment)
+    }
+
+    private fun save() {
+        createTipCalculator()
+    }
 }

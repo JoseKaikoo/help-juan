@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import es.juanTejada.TipCalculator.model.TipCalculator
 import kotlin.math.ceil
+import java.util.*
 
 class TipViewModel : ViewModel() {
     private val _bill: MutableLiveData<Float> = MutableLiveData(0.00f)
@@ -37,7 +38,6 @@ class TipViewModel : ViewModel() {
     val dinnerAmount: MutableLiveData<Float>
         get() = _dinerAmount
 
-
     fun setBill(bill: Float) {
         _bill.value = bill
         _total.value = calcTotal()
@@ -64,8 +64,15 @@ class TipViewModel : ViewModel() {
         _dinerAmount.value = 0.00f
     }
 
-    fun saveBill() {
-        val bill = TipCalculator(0, _bill.value!!, _percentage.value!!, _diners.value!!)
+    fun saveBill(name: String) {
+        val bill = TipCalculator(
+            0,
+            _bill.value!!,
+            _percentage.value!!,
+            _diners.value!!,
+            Date().toString(),
+            name
+        )
         //TODO SAVE ON ROOM
     }
 
