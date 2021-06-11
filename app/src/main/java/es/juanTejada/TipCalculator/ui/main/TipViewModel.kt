@@ -1,6 +1,5 @@
 package es.juanTejada.TipCalculator.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +14,12 @@ class TipViewModel : ViewModel() {
     private val _total: MutableLiveData<Float> = MutableLiveData(0.00f)
     val total: LiveData<Float>
         get() = _total
+
+    private val _tip: MutableLiveData<Float> = MutableLiveData(0.00f)
+    val tip: LiveData<Float>
+        get() = _tip
+
+
 
     private val _percentage: MutableLiveData<Float> = MutableLiveData(0.00f)
     val percentage: MutableLiveData<Float>
@@ -35,12 +40,11 @@ class TipViewModel : ViewModel() {
 
     fun setBill(bill: Float) {
         _bill.value = bill
-        _total.value = calcTotal(bill)
+        _total.value = calcTotal()
     }
 
     fun setPercentage(percentage: Float) {
-        Log.d("pollo",percentage.toString())
-        _percentage.value = calcPercentage(percentage)
+        _tip.value = calcPercentage(percentage)
     }
 
     fun setDiners(diners: Int) {
@@ -68,9 +72,9 @@ class TipViewModel : ViewModel() {
 
     private fun calcPercentage(percentage: Float): Float = percentage / 100 * bill.value!!
 
-    private fun calcTotal(bill: Float): Float = bill + _percentage.value!!
+    private fun calcTotal(): Float = _bill.value!! + _tip.value!!
 
-    private fun calcPerDinner(diners: Int): Float = calcTotal(bill.value!!) / diners
+    private fun calcPerDinner(diners: Int): Float = calcTotal() / diners
 
     private fun calcDinnerRounded(diners: Int): Float =
         ceil(calcPerDinner(diners))

@@ -1,7 +1,6 @@
 package es.juanTejada.TipCalculator.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import android.widget.EditText
@@ -27,7 +26,7 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
             binding.edTextTotal.setText(String.format("%.2f", it))
         })
 
-        viewModel.percentage.observe(viewLifecycleOwner, {
+        viewModel.tip.observe(viewLifecycleOwner, {
            binding.edTextTip.setText(String.format("%.2f", it))
         })
 
