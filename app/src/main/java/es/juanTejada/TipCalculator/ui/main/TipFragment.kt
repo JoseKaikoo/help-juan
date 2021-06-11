@@ -1,11 +1,14 @@
 package es.juanTejada.TipCalculator.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import es.juanTejada.TipCalculator.R
 import es.juanTejada.TipCalculator.databinding.TipFragmentBinding
 import es.juanTejada.TipCalculator.model.TipCalculator
@@ -17,13 +20,14 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
         TipFragmentBinding.bind(requireView())
     }
     private lateinit var tipCalculator: TipCalculator
+    private val navController: NavController by lazy { findNavController() }
 
     private val viewModel: TipViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         setupViews()
-
         viewModel.bill.observe(viewLifecycleOwner, {
 
         })
@@ -42,6 +46,14 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun setupViews() {
+        binding.toolbar.inflateMenu(R.menu.main_mnu)
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when(item.itemId) {
+                R.id.savemnu -> save()
+                R.id.recordsmnu -> navToRecords()
+            }
+            return@setOnMenuItemClickListener true
+        }
         binding.btnResetBill.setOnClickListener { resetBill() }
         binding.btnResetDiners.setOnClickListener { resetDiner() }
         binding.edTextBill.requestFocus()
@@ -65,16 +77,39 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun calculateDiners() {
-        viewModel.setDiners(captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt())
+        viewModel.setDiners(
+            captureValue(
+                binding.edTextDiner,
+                getString(R.string.edText_initial_diners),
+                1f
+            ).toInt()
+        )
         if (viewModel.diners.value == 0) binding.edTextDiner.setText(getString(R.string.edText_initial_diners))
         createTipCalculator()
         setTextDinerGroup()
     }
 
     private fun captureValues() {
-        viewModel.setBill(captureValue(binding.edTextBill, getString(R.string.edText_initial_amount)))
-        viewModel.setPercentage(captureValue(binding.edTextTipPercentage, getString(R.string.edText_tip_percentage), 10f))
-        viewModel.setDiners(captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt())
+        viewModel.setBill(
+            captureValue(
+                binding.edTextBill,
+                getString(R.string.edText_initial_amount)
+            )
+        )
+        viewModel.setPercentage(
+            captureValue(
+                binding.edTextTipPercentage,
+                getString(R.string.edText_tip_percentage),
+                10f
+            )
+        )
+        viewModel.setDiners(
+            captureValue(
+                binding.edTextDiner,
+                getString(R.string.edText_initial_diners),
+                1f
+            ).toInt()
+        )
     }
 
     private fun captureValue(editText: EditText, text: String, defaultValue: Float = 0f): Float {
@@ -101,7 +136,12 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
 
     private fun setTextDinerGroup() {
         binding.edTextDiner.setText(String.format("%.2f", tipCalculator.calculatePerDinner()))
-        binding.edTextRounded.setText(String.format("%.2f", tipCalculator.calculatePerDinnerRounded()))
+        binding.edTextRounded.setText(
+            String.format(
+                "%.2f",
+                tipCalculator.calculatePerDinnerRounded()
+            )
+        )
     }
 
     private fun createTipCalculator() {
@@ -121,4 +161,12 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
         binding.edTextDiner.selectAll()
     }
 
+    private fun navToRecords() {
+        Log.d("pollo","si")
+        navController.navigate(R.id.tipRecordsFragment)
+    }
+
+    private fun save() {
+        //TODO
+    }
 }
