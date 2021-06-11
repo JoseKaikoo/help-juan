@@ -115,7 +115,7 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun createTipCalculator() {
-        tipCalculator = TipCalculator(bill, percentage, diners)
+        tipCalculator = TipCalculator( bill = bill, percentage = percentage, dinners = diners)
     }
 
 }
