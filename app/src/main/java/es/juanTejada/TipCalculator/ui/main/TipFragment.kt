@@ -1,7 +1,6 @@
 package es.juanTejada.TipCalculator.ui.main
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,8 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.juanTejada.TipCalculator.R
+import es.juanTejada.TipCalculator.data.AppDatabase
 import es.juanTejada.TipCalculator.databinding.TipFragmentBinding
-import es.juanTejada.TipCalculator.model.TipCalculator
+import es.juanTejada.TipCalculator.model.TipRepository
 import es.juanTejada.TipCalculator.model.isNotEmpty
 
 
@@ -24,11 +24,13 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private val navController: NavController by lazy { findNavController() }
-    val alertDialog by lazy {
+    private val alertDialog by lazy {
         AlertDialog.Builder(requireContext())
     }
 
-    private val viewModel: TipViewModel by viewModels()
+    private val viewModel: TipViewModel by viewModels {
+        TipViewModelFactory(TipRepository(AppDatabase.getInstance(requireContext()).tipDao))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -151,11 +153,12 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun navToRecords() {
-        Log.d("pollo", "si")
         navController.navigate(R.id.tipRecordsFragment)
     }
 
     private fun save() {
         createTipCalculator()
+        resetBill()
+        resetDiner()
     }
 }

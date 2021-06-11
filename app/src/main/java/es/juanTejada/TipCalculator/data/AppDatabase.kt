@@ -6,13 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import es.juanTejada.TipCalculator.model.TipCalculator
+import es.juanTejada.TipCalculator.model.TipDao
 
 @Database(
     entities = [TipCalculator::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
+    abstract val tipDao: TipDao
     companion object {
+
 
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -30,6 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
 
                             }
                         })
+                            .allowMainThreadQueries()
                             .build()
                     }
                 }

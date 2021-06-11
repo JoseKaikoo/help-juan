@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import es.juanTejada.TipCalculator.model.TipCalculator
+import es.juanTejada.TipCalculator.model.TipRepository
 import kotlin.math.ceil
 import java.util.*
 
-class TipViewModel : ViewModel() {
+class TipViewModel(private val tipRepository: TipRepository) : ViewModel() {
     private val _bill: MutableLiveData<Float> = MutableLiveData(0.00f)
     val bill: LiveData<Float>
         get() = _bill
@@ -19,7 +20,6 @@ class TipViewModel : ViewModel() {
     private val _tip: MutableLiveData<Float> = MutableLiveData(0.00f)
     val tip: LiveData<Float>
         get() = _tip
-
 
 
     private val _percentage: MutableLiveData<Float> = MutableLiveData(0.00f)
@@ -73,7 +73,7 @@ class TipViewModel : ViewModel() {
             Date().toString(),
             name
         )
-        //TODO SAVE ON ROOM
+        tipRepository.saveBill(bill)
     }
 
 
