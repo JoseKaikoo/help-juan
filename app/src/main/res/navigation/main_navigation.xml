@@ -9,5 +9,13 @@
         android:id="@+id/tipFragment"
         android:name="es.juanTejada.TipCalculator.ui.main.TipFragment"
         tools:layout="@layout/tip_fragment"
-        android:label="TipFragment" />
+        android:label="TipFragment" >
+        <action
+            android:id="@+id/action_tipFragment_to_tipRecordsFragment"
+            app:destination="@id/tipRecordsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tipRecordsFragment"
+        android:name="es.juanTejada.TipCalculator.ui.main.records.TipRecordsFragment"
+        android:label="TipRecordsFragment" />
 </navigation>
