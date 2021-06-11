@@ -7,18 +7,6 @@
     android:layout_gravity="end"
     tools:context="es.juanTejada.TipCalculator.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        app:title="Tip Calculator"
-        app:titleTextColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/edText_bill"
         style="@style/TextAppearance.AppCompat.Headline"

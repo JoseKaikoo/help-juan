@@ -4,6 +4,9 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
@@ -64,14 +67,6 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun setupViews() {
-        binding.toolbar.inflateMenu(R.menu.main_mnu)
-        binding.toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.savemnu -> save()
-                R.id.recordsmnu -> navToRecords()
-            }
-            return@setOnMenuItemClickListener true
-        }
         binding.btnResetBill.setOnClickListener { resetBill() }
         binding.btnResetDiners.setOnClickListener { resetDiner() }
         binding.edTextBill.requestFocus()
@@ -157,5 +152,18 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
 
     private fun save() {
         createTipCalculator()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_mnu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.savemnu -> save()
+            R.id.recordsmnu -> navToRecords()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
