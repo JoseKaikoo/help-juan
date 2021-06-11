@@ -7,13 +7,16 @@ import java.lang.IllegalArgumentException
 import kotlin.math.ceil
 
 @Entity
-class TipCalculator(
+data class TipCalculator(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id", index = true)
     val id: Long = 0,
-    private val bill: Float,
-    private val percentage:Float,
-    private val dinners:Int
+    @ColumnInfo(name = "bill")
+    val bill: Float,
+    @ColumnInfo(name = "percentage")
+    val percentage:Float,
+    @ColumnInfo(name = "dinners")
+    val dinners:Int
     ) {
 
     init {

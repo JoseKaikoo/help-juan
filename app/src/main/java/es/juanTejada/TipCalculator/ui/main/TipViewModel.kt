@@ -41,7 +41,7 @@ class TipViewModel : ViewModel() {
     }
 
     fun saveBill() {
-        val bill = TipCalculator(_bill.value!!, _percentage.value!!, _diners.value!!)
+        val bill = TipCalculator(0,_bill.value!!, _percentage.value!!, _diners.value!!)
         //TODO SAVE ON ROOM
     }
 }
