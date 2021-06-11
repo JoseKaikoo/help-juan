@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
 import es.juanTejada.TipCalculator.R
 import es.juanTejada.TipCalculator.databinding.TipFragmentBinding
 import es.juanTejada.TipCalculator.model.TipCalculator
@@ -12,18 +13,20 @@ import es.juanTejada.TipCalculator.model.isNotEmpty
 
 class TipFragment : Fragment(R.layout.tip_fragment) {
 
-    private lateinit var tipCalculator: TipCalculator
     private val binding: TipFragmentBinding by lazy {
         TipFragmentBinding.bind(requireView())
     }
+    private lateinit var tipCalculator: TipCalculator
 
-    private var bill = 0.00f
-    private var percentage = 0.00f
-    private var diners = 0
+    private val viewModel: TipViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+
+        viewModel.bill.observe(viewLifecycleOwner, {
+
+        })
     }
 
     override fun onStart() {
@@ -62,41 +65,28 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun calculateDiners() {
-        diners = captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt()
-        if (diners == 0) binding.edTextDiner.setText(getString(R.string.edText_initial_diners))
-
+        viewModel.setDiners(captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt())
+        if (viewModel.diners.value == 0) binding.edTextDiner.setText(getString(R.string.edText_initial_diners))
         createTipCalculator()
         setTextDinerGroup()
     }
 
     private fun captureValues() {
-        bill = captureValue(binding.edTextBill, getString(R.string.edText_initial_amount))
-        percentage = captureValue(binding.edTextTipPercentage, getString(R.string.edText_tip_percentage), 10f)
-        diners = captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt()
+        viewModel.setBill(captureValue(binding.edTextBill, getString(R.string.edText_initial_amount)))
+        viewModel.setPercentage(captureValue(binding.edTextTipPercentage, getString(R.string.edText_tip_percentage), 10f))
+        viewModel.setDiners(captureValue(binding.edTextDiner, getString(R.string.edText_initial_diners), 1f).toInt())
     }
 
-    private fun captureValue(editText: EditText, text: String, defaultValue: Float = 0f): Float =
-            if (editText.isNotEmpty()) {
-                editText.text.toString().toFloat()
-            } else {
-                editText.setText(text)
-                editText.selectAll()
-                defaultValue
-            }
-
-    //Reset bill to default amount.
-    private fun resetBill() {
-        binding.edTextBill.setText(R.string.edText_initial_amount)
-        binding.edTextBill.requestFocus()
-        binding.edTextBill.selectAll()
-        binding.edTextTipPercentage.setText(R.string.edText_tip_percentage)
+    private fun captureValue(editText: EditText, text: String, defaultValue: Float = 0f): Float {
+        return if (editText.isNotEmpty()) {
+            editText.text.toString().toFloat()
+        } else {
+            editText.setText(text)
+            editText.selectAll()
+            defaultValue
+        }
     }
 
-    private fun resetDiner() {
-        binding.edTextDiner.setText(getString(R.string.edText_initial_diners))
-        binding.edTextDiner.requestFocus()
-        binding.edTextDiner.selectAll()
-    }
 
     private fun setText() {
         setTextBillGroup()
@@ -115,7 +105,20 @@ class TipFragment : Fragment(R.layout.tip_fragment) {
     }
 
     private fun createTipCalculator() {
-        tipCalculator = TipCalculator(bill, percentage, diners)
+        viewModel.saveBill()
+    }
+
+    //Reset bill to default amount.
+    private fun resetBill() {
+        viewModel.resetBill()
+        binding.edTextBill.requestFocus()
+        binding.edTextBill.selectAll()
+    }
+
+    private fun resetDiner() {
+        viewModel.resetDiner()
+        binding.edTextDiner.requestFocus()
+        binding.edTextDiner.selectAll()
     }
 
 }
