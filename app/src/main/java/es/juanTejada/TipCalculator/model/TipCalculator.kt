@@ -24,13 +24,4 @@ data class TipCalculator(
             throw IllegalArgumentException("Values can not be negative.")
         }
     }
-
-    fun calculateTip():Float  =  percentage/100 * bill
-
-    fun calculateTotal():Float = bill + calculateTip()
-
-    fun calculatePerDinner():Float =  calculateTotal() / dinners
-
-    fun calculatePerDinnerRounded():Float = ceil(calculatePerDinner())
-
 }

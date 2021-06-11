@@ -30,6 +30,7 @@
         android:gravity="end"
         android:inputType="numberDecimal"
         android:selectAllOnFocus="true"
+        android:digits="0123456789."
         android:text="@string/tw_bill_value"
         app:layout_constraintEnd_toStartOf="@+id/guideLine_editText"
         app:layout_constraintStart_toStartOf="parent"
